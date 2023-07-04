@@ -136,6 +136,20 @@ export async function PUT(request, { params }) {
 }
 ```
 
-
 9. Get Element By Id
 
+```js
+// Get element By Id
+export async function GET(request, { params }) {
+  const { id } = params;
+
+  const topic = await Topic.findOne({ _id: id });
+
+  return NextResponse.json(
+    { topic },
+    {
+      status: 200,
+    }
+  );
+}
+```
