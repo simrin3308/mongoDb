@@ -27,3 +27,23 @@ export async function GET() {
   // return the response with topics
   return NextResponse.json({ topics });
 }
+
+// Delete one topic
+
+export async function DELETE(request) {
+  const id = request.nextUrl.searchParams.get("id");
+
+  // connect with mongodb
+  await connectMongoDb();
+
+  // find and delete
+  await Topic.findByIdAndDelete(id);
+
+  // return response
+  return NextResponse.json(
+    { message: "Topic Deleted" },
+    {
+      status: 200,
+    }
+  );
+}

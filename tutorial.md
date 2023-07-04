@@ -76,6 +76,7 @@ export async function POST(request) {
 ```
 
 6. Get all the Topics
+<!-- TO CHECK WITH POSTMAN -->
 
 ```js
 // Get all topics
@@ -88,5 +89,29 @@ export async function GET() {
 
   // return the response with topics
   return NextResponse.json({ topics });
+}
+```
+
+7. Delete with mongodb
+
+```js
+// Delete one topic
+
+export async function DELETE(request) {
+  const id = request.nextUrl.searchParams.get("id");
+
+  // connect with mongodb
+  await connectMongoDb();
+
+  // find and delete
+  await Topic.findByIdAndDelete(id);
+
+  // return response
+  return NextResponse.json(
+    { message: "Topic Deleted" },
+    {
+      status: 200,
+    }
+  );
 }
 ```
