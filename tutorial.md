@@ -38,9 +38,8 @@ const topicSchema = new Schema(
   }
 );
 
-const Topic = mongoose.model.Topic || mongoose.model("Topic", topicSchema);
-
-export default Topic;
+mongoose.models = {};
+module.exports = mongoose.model.Topic || mongoose.model("Topic", topicSchema);
 ```
 
 5. Create Topic in MongoDb or Creation in MongoDb
