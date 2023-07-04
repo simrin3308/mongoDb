@@ -1,4 +1,4 @@
-dependencies > create db > connectMongodb > modelSchema > 
+dependencies > create db > connectMongodb > modelSchema >
 
 1. npm i mongoose
 2. Create a db in MONGODB atlas
@@ -10,7 +10,7 @@ import mongoose from "mongoose";
 
 const connectMongoDb = () => {
   try {
-    mongoose.connect(process.env.MONGODB_URI);
+    await mongoose.connect(process.env.MONGODB_URI);
     console.log("Connected MongoDb");
   } catch (error) {
     console.log(error);
@@ -43,3 +43,34 @@ const Topic = mongoose.model.Topic || mongoose.model("Topic", topicSchema);
 export default Topic;
 ```
 
+5. Create Topic in MongoDb or Creation in MongoDb
+
+1. Create a api route
+   app/api/create/route.js
+
+<!-- TO CHECK WITH POSTMAN -->
+
+```js
+import connectMongoDb from "@/libs/connectMongodb";
+import Topic from "@/models/topic";
+import { NextResponse } from "next/server";
+
+export async function POST(request) {
+  // destructure what we got from frontend.
+  const { title, description } = await request.json();
+
+  // connect with mongodb
+  await connectMongoDb();
+
+  // once connected create TOPIC. Import TOPIC from models schema.
+  await Topic.create({ title, description });
+
+  // return the next response in json and check via postman if everything is working
+  return NextResponse.json(
+    { message: "Topic Created" },
+    {
+      status: 201,
+    }
+  );
+}
+```
