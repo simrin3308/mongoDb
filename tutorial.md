@@ -45,8 +45,8 @@ export default Topic;
 
 5. Create Topic in MongoDb or Creation in MongoDb
 
-1. Create a api route
-   app/api/create/route.js
+- Create a api route
+  app/api/create/route.js
 
 <!-- TO CHECK WITH POSTMAN -->
 
@@ -72,5 +72,21 @@ export async function POST(request) {
       status: 201,
     }
   );
+}
+```
+
+6. Get all the Topics
+
+```js
+// Get all topics
+export async function GET() {
+  // connect with mongodb
+  await connectMongoDb();
+
+  // store all topics in the variable.
+  const topics = await Topic.find();
+
+  // return the response with topics
+  return NextResponse.json({ topics });
 }
 ```

@@ -15,3 +15,15 @@ export async function POST(request) {
     }
   );
 }
+
+// Get all topics
+export async function GET() {
+  // connect with mongodb
+  await connectMongoDb();
+
+  // store all topics in the variable.
+  const topics = await Topic.find();
+
+  // return the response with topics
+  return NextResponse.json({ topics });
+}
