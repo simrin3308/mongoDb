@@ -92,6 +92,7 @@ export async function GET() {
 ```
 
 7. Delete with mongodb
+<!-- TO CHECK WITH POSTMAN -->
 
 ```js
 // Delete one topic
@@ -116,6 +117,7 @@ export async function DELETE(request) {
 ```
 
 8. Update with mdb
+<!-- TO CHECK WITH POSTMAN -->
 
 ```js
 export async function PUT(request, { params }) {
@@ -137,6 +139,7 @@ export async function PUT(request, { params }) {
 ```
 
 9. Get Element By Id
+<!-- TO CHECK WITH POSTMAN -->
 
 ```js
 // Get element By Id
