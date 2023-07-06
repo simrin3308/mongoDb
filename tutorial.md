@@ -173,6 +173,40 @@ export async function DELETE(request) {
 }
 ```
 
+<!-- From front end -->
+
+```js
+"use client";
+import { useRouter } from "next/navigation";
+import React from "react";
+
+const RemoveBtn = ({ id }) => {
+  // we get this id from map method as a prop from parent
+
+  const router = useRouter();
+  const removeTopic = async () => {
+    const confirmed = confirm("Are You Sure?");
+
+    if (confirmed) {
+      // in delete we need id in search params
+      const res = await fetch(`http://localhost:3000/api/create?id=${id}`, {
+        method: "DELETE",
+      });
+      if (res.ok) {
+        router.refresh();
+      }
+    }
+  };
+  return (
+    <button onClick={removeTopic} className="bg-red-500 px-3 py-1 rounded-2xl">
+      Remove
+    </button>
+  );
+};
+
+export default RemoveBtn;
+```
+
 8. Update with mdb
 <!-- TO CHECK WITH POSTMAN -->
 
