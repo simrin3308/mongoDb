@@ -2,6 +2,7 @@ import connectMongoDb from "@/libs/connectMongodb";
 import Topic from "@/models/topic";
 import { NextResponse } from "next/server";
 
+// Create
 export async function POST(request) {
   const { title, description } = await request.json();
   await connectMongoDb();

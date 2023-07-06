@@ -91,6 +91,28 @@ export async function GET() {
 }
 ```
 
+<!-- From Front End -->
+
+- We have a route in api called create. In the create we have written the
+
+```js
+const GetTopics = async () => {
+  try {
+    const res = await fetch("http://localhost:3000/api/create", {
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch Topics");
+    }
+
+    return res.json();
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+```
+
 7. Delete with mongodb
 <!-- TO CHECK WITH POSTMAN -->
 
