@@ -22,13 +22,7 @@ export async function PUT(request, { params }) {
 // Get element By Id
 export async function GET(request, { params }) {
   const { id } = params;
-
+  await connectMongoDb();
   const topic = await Topic.findOne({ _id: id });
-
-  return NextResponse.json(
-    { topic },
-    {
-      status: 200,
-    }
-  );
+  return NextResponse.json({ topic }, { status: 200 });
 }

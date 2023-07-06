@@ -1,7 +1,6 @@
 import React from "react";
 import RemoveBtn from "./RemoveBtn";
 import Link from "next/link";
-import { HiPencilArt } from "react-icons/hi";
 
 const GetTopics = async () => {
   try {
@@ -21,7 +20,6 @@ const GetTopics = async () => {
 
 const TopicsList = async () => {
   const { topics } = await GetTopics();
-  console.log(topics);
   return (
     <>
       {topics.map((topic) => {
@@ -34,7 +32,7 @@ const TopicsList = async () => {
 
             <div className="flex gap-2">
               <RemoveBtn id={topic._id} />
-              <Link href={`/editTopic/123`}>
+              <Link href={`/editTopic/${topic._id}`}>
                 <button className="bg-red-500 px-3 py-1 rounded-2xl">
                   Edit
                 </button>
