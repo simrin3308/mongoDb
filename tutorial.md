@@ -74,6 +74,41 @@ export async function POST(request) {
 }
 ```
 
+<!-- FROM front end -->
+
+```js
+const router = useRouter();
+const [title, setTitle] = useState("");
+const [description, setDescription] = useState("");
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  if (!title || !description) {
+    alert("Title and Description are required");
+  }
+
+  try {
+    const res = await fetch(`http://localhost:3000/api/create`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({ title, description }),
+    });
+
+    if (res.ok) {
+      router.push("/");
+      alert("Topic Created");
+    } else {
+      throw new Error("Failed To Create");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+```
+
 6. Get all the Topics
 <!-- TO CHECK WITH POSTMAN -->
 
