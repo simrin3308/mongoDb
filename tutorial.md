@@ -1,4 +1,4 @@
-dependencies > create db > connectMongodb > modelSchema >
+dependencies > create db > connectMongodb > modelSchema > Create {Route > destructure > connect > create> response > }
 
 1. npm i mongoose
 2. Create a db in MONGODB atlas
@@ -49,6 +49,10 @@ module.exports = mongoose.model.Topic || mongoose.model("Topic", topicSchema);
 
 <!-- TO CHECK WITH POSTMAN -->
 
+Route > destructure > connect > create> response
+
+app/api/create/route.js
+
 ```js
 import connectMongoDb from "@/libs/connectMongodb";
 import Topic from "@/models/topic";
@@ -75,6 +79,8 @@ export async function POST(request) {
 ```
 
 <!-- FROM front end -->
+
+states > form submitFunction > tryCatch > fetch on Api route >
 
 ```js
 const router = useRouter();
@@ -110,7 +116,8 @@ const handleSubmit = async (e) => {
 ```
 
 6. Get all the Topics
-<!-- TO CHECK WITH POSTMAN -->
+   <!-- TO CHECK WITH POSTMAN -->
+   app/api/create/route.js
 
 ```js
 // Get all topics
@@ -128,7 +135,7 @@ export async function GET() {
 
 <!-- From Front End -->
 
-- We have a route in api called create. In the create we have written the
+- We have a route in api called create. In the create we have written the above code.
 
 ```js
 const GetTopics = async () => {
@@ -149,7 +156,8 @@ const GetTopics = async () => {
 ```
 
 7. Delete with mongodb
-<!-- TO CHECK WITH POSTMAN -->
+   <!-- TO CHECK WITH POSTMAN -->
+   id from searchParams > connect > findByIdAndDelete
 
 ```js
 // Delete one topic
@@ -174,6 +182,8 @@ export async function DELETE(request) {
 ```
 
 <!-- From front end -->
+
+function > id from destructure >
 
 ```js
 "use client";
@@ -208,7 +218,10 @@ export default RemoveBtn;
 ```
 
 8. Update with mdb
+
 <!-- TO CHECK WITH POSTMAN -->
+
+app/api/create/[id]/route.js
 
 ```js
 export async function PUT(request, { params }) {
@@ -227,6 +240,67 @@ export async function PUT(request, { params }) {
     }
   );
 }
+```
+
+<!-- From front end -->
+
+```js
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
+const EditTopicForm = ({ title, description, id }) => {
+  const router = useRouter();
+  const [newTitle, setNewTitle] = useState(title);
+  const [newDescription, setNewDescription] = useState(description);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // id we can get from params.
+      const res = await fetch(`http://localhost:3000/api/create/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ newTitle, newDescription }),
+      });
+      if (!res.ok) {
+        throw new Error("Failed to update topic");
+      }
+
+      router.refresh();
+      router.push("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+      <input
+        onChange={(e) => setNewTitle(e.target.value)}
+        type="text"
+        placeholder="Topic"
+        className="border border-slate-500 px-8 py-2"
+        value={newTitle}
+      />
+      <input
+        onChange={(e) => setNewDescription(e.target.value)}
+        type="text"
+        placeholder="Topic desc"
+        className="border border-slate-500 px-8 py-2"
+        value={newDescription}
+      />
+      <button type="submit" className="bg-green-500 font-bold px-6 py-3 w-fit">
+        Update Topic
+      </button>
+    </form>
+  );
+};
+
+export default EditTopicForm;
 ```
 
 9. Get Element By Id
